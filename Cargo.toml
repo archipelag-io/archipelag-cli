@@ -10,7 +10,7 @@ keywords = ["cli", "compute", "distributed", "gpu", "inference"]
 categories = ["command-line-utilities"]
 
 [[bin]]
-name = "archipelag"
+name = "archipelagio"
 path = "src/main.rs"
 
 [dependencies]

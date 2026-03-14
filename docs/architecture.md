@@ -9,7 +9,7 @@ The CLI is a single Rust binary that communicates with two backend services:
 
 ```
 ┌──────────────┐
-│  archipelag   │  (binary)
+│ archipelagio  │  (binary, alias: aio)
 │    CLI        │
 ├──────┬───────┤
 │ HTTP │ NATS  │
@@ -62,7 +62,7 @@ The `run()` function is the main dispatch. It splits into two branches:
 
 Each command group has its own `run_*` function. Streaming commands (`chat`, `jobs stream`, `jobs submit --stream`) consume the `Stream` with `StreamExt::next()` and flush stdout on each token.
 
-NATS commands use `async-nats` directly — connect, subscribe, print messages.
+The `sail` command uses `async-nats` directly — connect, subscribe, print messages.
 
 ### `config.rs`
 
@@ -87,7 +87,7 @@ Status values are color-coded: green (completed/online), red (failed/offline), c
 
 ## Data Flow
 
-### Authenticated command (e.g., `archipelag jobs list`)
+### Authenticated command (e.g., `aio jobs list`)
 
 ```
 main() → Cli::parse()
@@ -99,7 +99,7 @@ main() → Cli::parse()
        → output::print_jobs()       // text table or JSON
 ```
 
-### Streaming command (e.g., `archipelag chat "hello"`)
+### Streaming command (e.g., `aio chat "hello"`)
 
 ```
 main() → commands::run()
@@ -112,7 +112,7 @@ main() → commands::run()
        → final newline + token count to stderr
 ```
 
-### NATS command (e.g., `archipelag nats subscribe "host.*.heartbeat"`)
+### NATS command (e.g., `aio sail subscribe "host.*.heartbeat"`)
 
 ```
 main() → commands::run()

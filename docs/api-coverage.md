@@ -6,23 +6,23 @@ Which Archipelag.io API endpoints are exposed through the CLI.
 
 | Endpoint | CLI Command | Scope |
 |----------|-------------|-------|
-| `GET /api/v1/account` | `archipelag account` | read |
-| `GET /api/v1/jobs` | `archipelag jobs list` | read |
-| `GET /api/v1/jobs/:id` | `archipelag jobs get <id>` | read |
-| `POST /api/v1/jobs` | `archipelag jobs submit` | write |
-| `DELETE /api/v1/jobs/:id` | `archipelag jobs cancel <id>` | write |
-| `GET /api/v1/jobs/:id/stream` | `archipelag jobs stream <id>` | read |
-| `POST /api/v1/chat/completions` | `archipelag chat` | write |
-| `GET /api/v1/workloads` | `archipelag workloads list` | read |
-| `GET /api/v1/workloads/:slug` | `archipelag workloads get <slug>` | read |
-| `GET /api/v1/hosts` | `archipelag hosts list` | read |
-| `GET /api/v1/hosts/:id` | `archipelag hosts get <id>` | read |
-| `GET /api/v1/api-keys` | `archipelag api-keys list` | read |
-| `POST /api/v1/api-keys` | `archipelag api-keys create <name>` | write |
-| `DELETE /api/v1/api-keys/:id` | `archipelag api-keys delete <id>` | write |
-| `GET /api/v1/market/rates` | `archipelag market rates` | public |
-| `GET /api/v1/market/rates/:slug` | `archipelag market rates <slug>` | public |
-| `GET /api/v1/market/history/:slug` | `archipelag market history <slug>` | public |
+| `GET /api/v1/account` | `aioaccount` | read |
+| `GET /api/v1/jobs` | `aiojobs list` | read |
+| `GET /api/v1/jobs/:id` | `aiojobs get <id>` | read |
+| `POST /api/v1/jobs` | `aiojobs submit` | write |
+| `DELETE /api/v1/jobs/:id` | `aiojobs cancel <id>` | write |
+| `GET /api/v1/jobs/:id/stream` | `aiojobs stream <id>` | read |
+| `POST /api/v1/chat/completions` | `aiochat` | write |
+| `GET /api/v1/workloads` | `aioworkloads list` | read |
+| `GET /api/v1/workloads/:slug` | `aioworkloads get <slug>` | read |
+| `GET /api/v1/hosts` | `aiohosts list` | read |
+| `GET /api/v1/hosts/:id` | `aiohosts get <id>` | read |
+| `GET /api/v1/api-keys` | `aioapi-keys list` | read |
+| `POST /api/v1/api-keys` | `aioapi-keys create <name>` | write |
+| `DELETE /api/v1/api-keys/:id` | `aioapi-keys delete <id>` | write |
+| `GET /api/v1/market/rates` | `aiomarket rates` | public |
+| `GET /api/v1/market/rates/:slug` | `aiomarket rates <slug>` | public |
+| `GET /api/v1/market/history/:slug` | `aiomarket history <slug>` | public |
 
 ## Not Yet Covered
 
@@ -67,4 +67,4 @@ These endpoints exist in the API but don't have CLI commands yet. Good candidate
 
 ## NATS
 
-The `archipelag nats subscribe` command provides raw access to any NATS subject. This covers all real-time messaging without needing individual commands for each subject pattern.
+The `aio sail subscribe` command provides raw access to any NATS subject. This covers all real-time messaging without needing individual commands for each subject pattern.

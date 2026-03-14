@@ -3,7 +3,7 @@ use clap_complete::Shell;
 
 /// CLI for the Archipelag.io distributed compute network
 #[derive(Parser)]
-#[command(name = "archipelag", version, about)]
+#[command(name = "archipelagio", version, about)]
 #[command(propagate_version = true)]
 pub struct Cli {
     /// API base URL
@@ -110,10 +110,10 @@ pub enum Command {
         command: MarketCommand,
     },
 
-    /// Subscribe to NATS subjects (advanced)
-    Nats {
+    /// Subscribe to NATS subjects on the Archipelag.io message fabric (advanced)
+    Sail {
         #[command(subcommand)]
-        command: NatsCommand,
+        command: SailCommand,
     },
 
     /// Generate shell completions
@@ -233,7 +233,7 @@ pub enum MarketCommand {
 }
 
 #[derive(Subcommand)]
-pub enum NatsCommand {
+pub enum SailCommand {
     /// Subscribe to a NATS subject and print messages
     Subscribe {
         /// Subject to subscribe to (e.g., "host.*.heartbeat")

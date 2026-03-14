@@ -15,7 +15,7 @@ pub async fn run(cli: Cli) -> Result<()> {
         Command::Auth { command } => run_auth(command).await,
         Command::Completion { shell } => {
             let mut cmd = <Cli as clap::CommandFactory>::command();
-            clap_complete::generate(shell, &mut cmd, "archipelag", &mut io::stdout());
+            clap_complete::generate(shell, &mut cmd, "archipelagio", &mut io::stdout());
             Ok(())
         }
         _ => {
@@ -50,7 +50,7 @@ pub async fn run(cli: Cli) -> Result<()> {
                 Command::Hosts { command } => run_hosts(&client, command, format).await,
                 Command::ApiKeys { command } => run_api_keys(&client, command, format).await,
                 Command::Market { command } => run_market(&client, command, format).await,
-                Command::Nats { command } => run_nats(command, &cli.nats_url).await,
+                Command::Sail { command } => run_sail(command, &cli.nats_url).await,
                 Command::Auth { .. } | Command::Completion { .. } => unreachable!(),
             }
         }
@@ -393,11 +393,11 @@ async fn run_market(
     Ok(())
 }
 
-// --- NATS ---
+// --- Sail (NATS) ---
 
-async fn run_nats(command: NatsCommand, nats_url: &str) -> Result<()> {
+async fn run_sail(command: SailCommand, nats_url: &str) -> Result<()> {
     match command {
-        NatsCommand::Subscribe { subject, max } => {
+        SailCommand::Subscribe { subject, max } => {
             eprintln!("{} Connecting to {}…", "→".cyan(), nats_url);
 
             let client = async_nats::connect(nats_url)

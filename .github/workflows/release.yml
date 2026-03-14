@@ -81,19 +81,21 @@ jobs:
       - name: Package (unix)
         if: runner.os != 'Windows'
         run: |
-          cd target/${{ matrix.target }}/release
-          cp archipelag ../../../${{ matrix.artifact }}
-          cd ../../..
-          chmod +x ${{ matrix.artifact }}
-          tar czf ${{ matrix.artifact }}.tar.gz ${{ matrix.artifact }}
+          mkdir -p pkg
+          cp target/${{ matrix.target }}/release/archipelagio pkg/archipelagio
+          chmod +x pkg/archipelagio
+          ln -s archipelagio pkg/aio
+          tar czf ${{ matrix.artifact }}.tar.gz -C pkg archipelagio aio
           sha256sum ${{ matrix.artifact }}.tar.gz > ${{ matrix.artifact }}.tar.gz.sha256
+          rm -rf pkg
 
       - name: Package (windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          Copy-Item "target/${{ matrix.target }}/release/archipelag.exe" "${{ matrix.artifact }}.exe"
-          Compress-Archive -Path "${{ matrix.artifact }}.exe" -DestinationPath "${{ matrix.artifact }}.zip"
+          Copy-Item "target/${{ matrix.target }}/release/archipelagio.exe" "archipelagio.exe"
+          Copy-Item "archipelagio.exe" "aio.exe"
+          Compress-Archive -Path "archipelagio.exe","aio.exe" -DestinationPath "${{ matrix.artifact }}.zip"
           (Get-FileHash "${{ matrix.artifact }}.zip" -Algorithm SHA256).Hash.ToLower() + "  ${{ matrix.artifact }}.zip" | Out-File -Encoding ASCII "${{ matrix.artifact }}.zip.sha256"
 
       # Upload
@@ -161,10 +163,12 @@ jobs:
         run: |
           mkdir -p build/linux-amd64 build/linux-arm64
           tar xzf artifacts/archipelag-linux-amd64.tar.gz -C build/linux-amd64
-          mv build/linux-amd64/archipelag-linux-amd64 build/linux-amd64/archipelag
+          mv build/linux-amd64/archipelag-linux-amd64 build/linux-amd64/archipelagio
           tar xzf artifacts/archipelag-linux-arm64.tar.gz -C build/linux-arm64
-          mv build/linux-arm64/archipelag-linux-arm64 build/linux-arm64/archipelag
-          chmod +x build/linux-amd64/archipelag build/linux-arm64/archipelag
+          mv build/linux-arm64/archipelag-linux-arm64 build/linux-arm64/archipelagio
+          chmod +x build/linux-amd64/archipelagio build/linux-arm64/archipelagio
+          ln -s archipelagio build/linux-amd64/aio
+          ln -s archipelagio build/linux-arm64/aio
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

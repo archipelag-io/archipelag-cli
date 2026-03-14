@@ -4,6 +4,8 @@ Command-line interface for the [Archipelag.io](https://archipelag.io) distribute
 
 **[Full documentation](https://docs.archipelag.io/sdks/cli/)** · **[Quickstart](https://docs.archipelag.io/getting-started/quickstart/cli/)**
 
+The binary is called `archipelagio` and can also be invoked as `aio` for short.
+
 ## Install
 
 ### From source
@@ -18,30 +20,34 @@ cargo install --git https://github.com/archipelag-io/archipelag-cli
 cargo install archipelag
 ```
 
+Both `archipelagio` and `aio` (symlink) are included in release tarballs.
+
 ## Quick Start
 
 ```bash
 # Authenticate with your API key
-archipelag auth login
+aio auth login
 
 # Chat with an AI model (streaming)
-archipelag chat "Explain quantum computing in one paragraph"
+aio chat "Explain quantum computing in one paragraph"
 
 # Check your account balance
-archipelag account
+aio account
 
 # List available workloads
-archipelag workloads list
+aio workloads list
 
 # Submit a custom job
-archipelag jobs submit --workload llm-chat --input '{"prompt": "Hello!"}' --stream
+aio jobs submit --workload llm-chat --input '{"prompt": "Hello!"}' --stream
 
 # View Islands on the network
-archipelag hosts list
+aio hosts list
 
 # Check market rates
-archipelag market rates
+aio market rates
 ```
+
+All examples use `aio` for brevity. `archipelagio` works identically.
 
 ## Configuration
 
@@ -65,79 +71,79 @@ Precedence: CLI flag > environment variable > config file.
 
 | Command | Description |
 |---------|-------------|
-| `archipelag auth login` | Save API key |
-| `archipelag auth status` | Show authentication status |
-| `archipelag auth logout` | Remove saved credentials |
-| `archipelag account` | Show account info and credits |
-| `archipelag chat <prompt>` | Chat with an AI model (streaming) |
-| `archipelag jobs list` | List your compute jobs |
-| `archipelag jobs submit` | Submit a new job |
-| `archipelag jobs get <id>` | Get job details |
-| `archipelag jobs stream <id>` | Stream job output |
-| `archipelag jobs cancel <id>` | Cancel a running job |
-| `archipelag workloads list` | List available workloads |
-| `archipelag workloads get <slug>` | Get workload details |
-| `archipelag hosts list` | List online Islands |
-| `archipelag hosts get <id>` | Get Island details |
-| `archipelag api-keys list` | List API keys |
-| `archipelag api-keys create <name>` | Create a new API key |
-| `archipelag api-keys delete <id>` | Delete an API key |
-| `archipelag market rates` | Show current market rates |
-| `archipelag market history <slug>` | Price history for a workload |
-| `archipelag nats subscribe <subject>` | Subscribe to NATS messages |
-| `archipelag completion <shell>` | Generate shell completions |
+| `aio auth login` | Save API key |
+| `aio auth status` | Show authentication status |
+| `aio auth logout` | Remove saved credentials |
+| `aio account` | Show account info and credits |
+| `aio chat <prompt>` | Chat with an AI model (streaming) |
+| `aio jobs list` | List your compute jobs |
+| `aio jobs submit` | Submit a new job |
+| `aio jobs get <id>` | Get job details |
+| `aio jobs stream <id>` | Stream job output |
+| `aio jobs cancel <id>` | Cancel a running job |
+| `aio workloads list` | List available workloads |
+| `aio workloads get <slug>` | Get workload details |
+| `aio hosts list` | List online Islands |
+| `aio hosts get <id>` | Get Island details |
+| `aio api-keys list` | List API keys |
+| `aio api-keys create <name>` | Create a new API key |
+| `aio api-keys delete <id>` | Delete an API key |
+| `aio market rates` | Show current market rates |
+| `aio market history <slug>` | Price history for a workload |
+| `aio sail subscribe <subject>` | Subscribe to NATS messages |
+| `aio completion <shell>` | Generate shell completions |
 
 ## Output Formats
 
 All commands support `--format json` for machine-readable output:
 
 ```bash
-archipelag jobs list --format json
-archipelag account --format json | jq '.credits'
+aio jobs list --format json
+aio account --format json | jq '.credits'
 ```
 
 ## Chat Options
 
 ```bash
 # With system prompt
-archipelag chat "Write a haiku" --system "You are a poet"
+aio chat "Write a haiku" --system "You are a poet"
 
 # Control generation
-archipelag chat "Hello" --max-tokens 100 --temperature 0.5
+aio chat "Hello" --max-tokens 100 --temperature 0.5
 
 # Non-streaming (wait for complete response)
-archipelag chat "Hello" --no-stream
+aio chat "Hello" --no-stream
 
 # Use a specific workload
-archipelag chat "Hello" --workload llm-chat
+aio chat "Hello" --workload llm-chat
 ```
 
-## NATS (Advanced)
+## Sail (NATS)
 
 Subscribe to live messages on the Archipelag.io message fabric:
 
 ```bash
 # Watch all heartbeats
-archipelag nats subscribe "host.*.heartbeat"
+aio sail subscribe "host.*.heartbeat"
 
 # Watch job status updates for a specific host
-archipelag nats subscribe "host.abc123.status"
+aio sail subscribe "host.abc123.status"
 
 # Limit to 10 messages
-archipelag nats subscribe "host.*.heartbeat" --max 10
+aio sail subscribe "host.*.heartbeat" --max 10
 ```
 
 ## Shell Completions
 
 ```bash
 # Bash
-archipelag completion bash >> ~/.bashrc
+aio completion bash >> ~/.bashrc
 
 # Zsh
-archipelag completion zsh >> ~/.zshrc
+aio completion zsh >> ~/.zshrc
 
 # Fish
-archipelag completion fish > ~/.config/fish/completions/archipelag.fish
+aio completion fish > ~/.config/fish/completions/archipelagio.fish
 ```
 
 ## License

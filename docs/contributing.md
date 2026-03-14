@@ -21,7 +21,7 @@ cargo build
 
 # Run
 cargo run -- --help
-cargo run -- account --api-key ak_xxx
+cargo run -- account --api-key ak_xxx  # runs as archipelagio
 
 # Check everything CI checks
 cargo fmt --check
