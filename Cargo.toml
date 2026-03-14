@@ -1,0 +1,60 @@
+[package]
+name = "archipelag"
+version = "0.1.0"
+edition = "2021"
+description = "CLI for the Archipelag.io distributed compute network"
+license = "MIT"
+repository = "https://github.com/archipelag-io/archipelag-cli"
+homepage = "https://archipelag.io"
+keywords = ["cli", "compute", "distributed", "gpu", "inference"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "archipelag"
+path = "src/main.rs"
+
+[dependencies]
+# CLI
+clap = { version = "4", features = ["derive", "env"] }
+clap_complete = "4"
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# HTTP client
+reqwest = { version = "0.12", features = ["json", "stream", "rustls-tls"], default-features = false }
+
+# NATS
+async-nats = "0.38"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+# Terminal output
+colored = "3"
+indicatif = "0.17"
+
+# Config & paths
+dirs = "6"
+
+# Error handling
+anyhow = "1"
+thiserror = "2"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Streaming (SSE)
+eventsource-stream = "0.2"
+futures = "0.3"
+tokio-stream = "0.1"
+
+# UUID
+uuid = { version = "1", features = ["v4"] }
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
