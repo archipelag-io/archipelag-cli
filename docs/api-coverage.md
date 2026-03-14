@@ -1,6 +1,6 @@
 # API Coverage
 
-Which Archipelag.io API endpoints are exposed through the CLI.
+Which Archipelag.io API endpoints are exposed through the CLI. See the full [API Specs](https://app.archipelag.io/api/v1/docs) for all available endpoints.
 
 ## Covered
 
