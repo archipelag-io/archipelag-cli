@@ -1,6 +1,6 @@
 [package]
 name = "archipelag"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "CLI for the Archipelag.io distributed compute network"
 license = "MIT"
