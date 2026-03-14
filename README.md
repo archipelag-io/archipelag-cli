@@ -2,7 +2,7 @@
 
 Command-line interface for the [Archipelag.io](https://archipelag.io) distributed compute network.
 
-**[Full documentation](https://docs.archipelag.io/sdks/cli/)** · **[Quickstart](https://docs.archipelag.io/getting-started/quickstart/cli/)**
+**[Full documentation](https://docs.archipelag.io/sdks/cli/)** · **[Quickstart](https://docs.archipelag.io/getting-started/quickstart/cli/)** · **[API Specs](https://app.archipelag.io/api/v1/docs)**
 
 The binary is called `archipelagio` and can also be invoked as `aio` for short.
 
@@ -34,7 +34,7 @@ aio chat "Explain quantum computing in one paragraph"
 # Check your account balance
 aio account
 
-# List available workloads
+# List available Cargos
 aio workloads list
 
 # Submit a custom job
@@ -81,15 +81,15 @@ Precedence: CLI flag > environment variable > config file.
 | `aio jobs get <id>` | Get job details |
 | `aio jobs stream <id>` | Stream job output |
 | `aio jobs cancel <id>` | Cancel a running job |
-| `aio workloads list` | List available workloads |
-| `aio workloads get <slug>` | Get workload details |
+| `aio workloads list` | List available Cargos |
+| `aio workloads get <slug>` | Get Cargo details |
 | `aio hosts list` | List online Islands |
 | `aio hosts get <id>` | Get Island details |
 | `aio api-keys list` | List API keys |
 | `aio api-keys create <name>` | Create a new API key |
 | `aio api-keys delete <id>` | Delete an API key |
 | `aio market rates` | Show current market rates |
-| `aio market history <slug>` | Price history for a workload |
+| `aio market history <slug>` | Price history for a Cargo |
 | `aio sail subscribe <subject>` | Subscribe to NATS messages |
 | `aio completion <shell>` | Generate shell completions |
 
@@ -114,7 +114,7 @@ aio chat "Hello" --max-tokens 100 --temperature 0.5
 # Non-streaming (wait for complete response)
 aio chat "Hello" --no-stream
 
-# Use a specific workload
+# Use a specific Cargo
 aio chat "Hello" --workload llm-chat
 ```
 
