@@ -2,6 +2,8 @@
 
 Command-line interface for the [Archipelag.io](https://archipelag.io) distributed compute network.
 
+**[Full documentation](https://docs.archipelag.io/sdks/cli/)** · **[Quickstart](https://docs.archipelag.io/getting-started/quickstart/cli/)**
+
 ## Install
 
 ### From source
