@@ -163,12 +163,8 @@ jobs:
         run: |
           mkdir -p build/linux-amd64 build/linux-arm64
           tar xzf artifacts/archipelag-linux-amd64.tar.gz -C build/linux-amd64
-          mv build/linux-amd64/archipelag-linux-amd64 build/linux-amd64/archipelagio
           tar xzf artifacts/archipelag-linux-arm64.tar.gz -C build/linux-arm64
-          mv build/linux-arm64/archipelag-linux-arm64 build/linux-arm64/archipelagio
           chmod +x build/linux-amd64/archipelagio build/linux-arm64/archipelagio
-          ln -s archipelagio build/linux-amd64/aio
-          ln -s archipelagio build/linux-arm64/aio
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
