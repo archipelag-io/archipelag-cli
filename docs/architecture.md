@@ -47,7 +47,7 @@ The `OutputFormat` enum (`Text` | `Json`) controls how all output is rendered.
 `ApiClient` wraps `reqwest::Client` with:
 
 - Default `Authorization: Bearer` header from the API key
-- `User-Agent: archipelag-cli/{version}` header
+- `User-Agent: archipelagio-cli/{version}` header
 - `check_error()` that maps HTTP status codes to human-readable `anyhow` errors (401 → auth, 402 → credits, 429 → rate limit, etc.)
 - SSE streaming via `eventsource-stream` for `stream_job()` and `chat_stream()`, returned as `Pin<Box<dyn Stream>>` for ergonomic consumption
 

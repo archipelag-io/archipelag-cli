@@ -1,4 +1,4 @@
-# archipelag-cli
+# archipelagio-cli
 
 Command-line interface for the [Archipelag.io](https://archipelag.io) distributed compute network.
 
@@ -11,7 +11,7 @@ The binary is called `archipelagio` and can also be invoked as `aio` for short.
 ### From source
 
 ```bash
-cargo install --git https://github.com/archipelag-io/archipelag-cli
+cargo install --git https://github.com/archipelag-io/archipelagio-cli
 ```
 
 ### From crates.io

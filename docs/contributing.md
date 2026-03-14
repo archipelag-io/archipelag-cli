@@ -8,8 +8,8 @@
 ## Setup
 
 ```bash
-git clone https://github.com/archipelag-io/archipelag-cli.git
-cd archipelag-cli
+git clone https://github.com/archipelag-io/archipelagio-cli.git
+cd archipelagio-cli
 cargo build
 ```
 
@@ -132,6 +132,6 @@ The release workflow (`.github/workflows/release.yml`) will:
 
 - Build binaries for 6 targets (linux amd64/arm64/musl, macOS amd64/arm64, Windows)
 - Create a GitHub Release with all binaries and SHA256 checksums
-- Build and push a multi-arch OCI container to `ghcr.io/archipelag-io/archipelag-cli`
+- Build and push a multi-arch OCI container to `ghcr.io/archipelag-io/archipelagio-cli`
 
-Tags are automatically versioned: `v0.1.0` → `ghcr.io/archipelag-io/archipelag-cli:0.1.0`, `:0.1`, `:0`, `:latest`.
+Tags are automatically versioned: `v0.1.0` → `ghcr.io/archipelag-io/archipelagio-cli:0.1.0`, `:0.1`, `:0`, `:latest`.
