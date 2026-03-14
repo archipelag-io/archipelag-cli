@@ -7,7 +7,12 @@ use clap_complete::Shell;
 #[command(propagate_version = true)]
 pub struct Cli {
     /// API base URL
-    #[arg(long, global = true, env = "ARCHIPELAG_API_URL", default_value = "https://api.archipelag.io")]
+    #[arg(
+        long,
+        global = true,
+        env = "ARCHIPELAG_API_URL",
+        default_value = "https://api.archipelag.io"
+    )]
     pub api_url: String,
 
     /// API key (overrides config file)
@@ -15,7 +20,12 @@ pub struct Cli {
     pub api_key: Option<String>,
 
     /// NATS server URL
-    #[arg(long, global = true, env = "ARCHIPELAG_NATS_URL", default_value = "nats://sail.archipelag.io:4222")]
+    #[arg(
+        long,
+        global = true,
+        env = "ARCHIPELAG_NATS_URL",
+        default_value = "nats://sail.archipelag.io:4222"
+    )]
     pub nats_url: String,
 
     /// Output format

@@ -59,7 +59,10 @@ pub fn print_job(job: &Job, format: OutputFormat) {
                 println!("  Workload: {}", slug);
             }
             if let Some(ref input) = job.input {
-                println!("  Input:    {}", serde_json::to_string(input).unwrap_or_default());
+                println!(
+                    "  Input:    {}",
+                    serde_json::to_string(input).unwrap_or_default()
+                );
             }
             if let Some(ref output) = job.output {
                 println!("  Output:   {}", output);
@@ -207,7 +210,10 @@ pub fn print_host(host: &Host, format: OutputFormat) {
                 println!("  Heartbeat: {}", hb);
             }
             if let Some(ref caps) = host.capabilities {
-                println!("  Caps:      {}", serde_json::to_string_pretty(caps).unwrap_or_default());
+                println!(
+                    "  Caps:      {}",
+                    serde_json::to_string_pretty(caps).unwrap_or_default()
+                );
             }
         }
     }

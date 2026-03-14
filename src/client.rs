@@ -54,7 +54,9 @@ impl ApiClient {
 
         match status {
             StatusCode::UNAUTHORIZED => bail!("Authentication failed: {msg}. Check your API key."),
-            StatusCode::FORBIDDEN => bail!("Access denied: {msg}. Your API key may lack the required scope."),
+            StatusCode::FORBIDDEN => {
+                bail!("Access denied: {msg}. Your API key may lack the required scope.")
+            }
             StatusCode::NOT_FOUND => bail!("Not found: {msg}"),
             StatusCode::PAYMENT_REQUIRED => bail!("Insufficient credits: {msg}"),
             StatusCode::TOO_MANY_REQUESTS => bail!("Rate limited: {msg}. Please wait and retry."),
@@ -97,11 +99,7 @@ impl ApiClient {
         Ok(body.data)
     }
 
-    pub async fn submit_job(
-        &self,
-        workload: &str,
-        input: serde_json::Value,
-    ) -> Result<Job> {
+    pub async fn submit_job(&self, workload: &str, input: serde_json::Value) -> Result<Job> {
         let body = serde_json::json!({
             "workload": workload,
             "input": input,
@@ -127,7 +125,10 @@ impl ApiClient {
         Ok(())
     }
 
-    pub async fn stream_job(&self, id: &str) -> Result<Pin<Box<dyn Stream<Item = Result<StreamEvent>> + Send>>> {
+    pub async fn stream_job(
+        &self,
+        id: &str,
+    ) -> Result<Pin<Box<dyn Stream<Item = Result<StreamEvent>> + Send>>> {
         let resp = self
             .http
             .get(self.url(&format!("/api/v1/jobs/{id}/stream")))
@@ -202,11 +203,7 @@ impl ApiClient {
     // --- Workloads ---
 
     pub async fn list_workloads(&self) -> Result<Vec<Workload>> {
-        let resp = self
-            .http
-            .get(self.url("/api/v1/workloads"))
-            .send()
-            .await?;
+        let resp = self.http.get(self.url("/api/v1/workloads")).send().await?;
         let resp = self.check_error(resp).await?;
         let body: WorkloadsResponse = resp.json().await?;
         Ok(body.data)
@@ -246,11 +243,7 @@ impl ApiClient {
     // --- API Keys ---
 
     pub async fn list_api_keys(&self) -> Result<Vec<ApiKey>> {
-        let resp = self
-            .http
-            .get(self.url("/api/v1/api-keys"))
-            .send()
-            .await?;
+        let resp = self.http.get(self.url("/api/v1/api-keys")).send().await?;
         let resp = self.check_error(resp).await?;
         let body: ApiKeysResponse = resp.json().await?;
         Ok(body.data)
@@ -302,5 +295,4 @@ impl ApiClient {
         let body: MarketHistoryResponse = resp.json().await?;
         Ok(body.data)
     }
-
 }

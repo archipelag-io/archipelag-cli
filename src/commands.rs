@@ -34,8 +34,16 @@ pub async fn run(cli: Cli) -> Result<()> {
                     workload,
                     no_stream,
                 } => {
-                    run_chat(&client, &prompt, system, max_tokens, temperature, &workload, no_stream)
-                        .await
+                    run_chat(
+                        &client,
+                        &prompt,
+                        system,
+                        max_tokens,
+                        temperature,
+                        &workload,
+                        no_stream,
+                    )
+                    .await
                 }
                 Command::Jobs { command } => run_jobs(&client, command, format).await,
                 Command::Workloads { command } => run_workloads(&client, command, format).await,
@@ -66,19 +74,29 @@ async fn run_auth(command: AuthCommand) -> Result<()> {
             };
 
             if !api_key.starts_with("ak_") {
-                anyhow::bail!("API key should start with 'ak_'. Got: {}...", &api_key[..api_key.len().min(6)]);
+                anyhow::bail!(
+                    "API key should start with 'ak_'. Got: {}...",
+                    &api_key[..api_key.len().min(6)]
+                );
             }
 
             // Verify the key works
             let client = ApiClient::new("https://api.archipelag.io", &api_key)?;
-            let account = client.get_account().await
+            let account = client
+                .get_account()
+                .await
                 .context("Failed to verify API key. Is it valid?")?;
 
             let mut config = Config::load().unwrap_or_default();
             config.api_key = Some(api_key);
             config.save()?;
 
-            println!("{} Logged in as {} ({})", "✓".green(), account.email, format!("{:.2} credits", account.credits));
+            println!(
+                "{} Logged in as {} ({:.2} credits)",
+                "✓".green(),
+                account.email,
+                account.credits
+            );
             println!("  Config saved to {}", Config::path()?.display());
             Ok(())
         }
@@ -94,7 +112,10 @@ async fn run_auth(command: AuthCommand) -> Result<()> {
                     match ApiClient::new("https://api.archipelag.io", key) {
                         Ok(client) => match client.get_account().await {
                             Ok(account) => {
-                                println!("Account: {} ({:.2} credits)", account.email, account.credits);
+                                println!(
+                                    "Account: {} ({:.2} credits)",
+                                    account.email, account.credits
+                                );
                             }
                             Err(e) => {
                                 println!("{} Key may be invalid: {e}", "⚠".yellow());
@@ -170,11 +191,7 @@ async fn run_chat(
         if let Some(ref usage) = response.usage {
             eprintln!(
                 "\n{}",
-                format!(
-                    "[{} tokens]",
-                    usage.total_tokens.unwrap_or(0)
-                )
-                .dimmed()
+                format!("[{} tokens]", usage.total_tokens.unwrap_or(0)).dimmed()
             );
         }
     } else {
@@ -342,7 +359,10 @@ async fn run_api_keys(
             println!("  Name: {}", created.api_key.name);
             println!("  ID:   {}", created.api_key.id);
             println!();
-            println!("  {}", "Secret key (save this — it won't be shown again):".yellow());
+            println!(
+                "  {}",
+                "Secret key (save this — it won't be shown again):".yellow()
+            );
             println!("  {}", created.key.bold());
         }
         ApiKeysCommand::Delete { id } => {
@@ -378,11 +398,7 @@ async fn run_market(
 async fn run_nats(command: NatsCommand, nats_url: &str) -> Result<()> {
     match command {
         NatsCommand::Subscribe { subject, max } => {
-            eprintln!(
-                "{} Connecting to {}…",
-                "→".cyan(),
-                nats_url
-            );
+            eprintln!("{} Connecting to {}…", "→".cyan(), nats_url);
 
             let client = async_nats::connect(nats_url)
                 .await

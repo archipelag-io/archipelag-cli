@@ -218,4 +218,3 @@ pub struct ApiError {
     pub error: Option<String>,
     pub message: Option<String>,
 }
-
